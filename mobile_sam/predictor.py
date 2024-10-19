@@ -30,7 +30,13 @@ class SamPredictor:
         self.model = sam_model
         self.transform = ResizeLongestSide(sam_model.image_encoder.img_size)
         self.reset_image()
-
+        
+    def show_data(self) -> None:
+        print(self.features)
+        print(self.orig_h)
+        print(self.orig_w)
+        print(self.input_w)
+        
     def set_image(
         self,
         image: np.ndarray,
