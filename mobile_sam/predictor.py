@@ -13,8 +13,7 @@ from typing import Optional, Tuple
 
 from .utils.transforms import ResizeLongestSide
 
-
-class SamPredictor:
+class TestSamPredictor:
     def __init__(
         self,
         sam_model: Sam,
@@ -30,12 +29,29 @@ class SamPredictor:
         self.model = sam_model
         self.transform = ResizeLongestSide(sam_model.image_encoder.img_size)
         self.reset_image()
-        
-    def show_data(self) -> None:
-        print(self.features)
-        print(self.orig_h)
-        print(self.orig_w)
-        print(self.input_w)
+    
+    def import_fields(self, fields):
+        self.features = fields["features"]
+        self.orig_h = fields["orig_h"]
+        self.orig_w = fields["orig_w"]
+        self.input_h = fields["input_h"]
+        self.input_w = fields["input_w"]
+        self.is_image_set = True
+
+    def export_fields(self):
+        """
+        Exports the specified fields of the TestSamPredictor class.
+
+        Returns:
+            dict: A dictionary containing the values of features, orig_h, orig_w, input_h, and input_w.
+        """
+        return {
+            "features": self.features,
+            "orig_h": self.orig_h,
+            "orig_w": self.orig_w,
+            "input_h": self.input_h,
+            "input_w": self.input_w,
+        }
         
     def set_image(
         self,
